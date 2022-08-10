@@ -1,0 +1,94 @@
+## Install krew
+
+(
+  set -x; cd "$(mktemp -d)" &&
+  OS="$(uname | tr '[:upper:]' '[:lower:]')" &&
+  ARCH="$(uname -m | sed -e 's/x86_64/amd64/' -e 's/\(arm\)\(64\)\?.*/\1\2/' -e 's/aarch64$/arm64/')" &&
+  KREW="krew-${OS}_${ARCH}" &&
+  curl -fsSLO "https://github.com/kubernetes-sigs/krew/releases/latest/download/${KREW}.tar.gz" &&
+  tar zxvf "${KREW}.tar.gz" &&
+  ./"${KREW}" install krew
+)
+export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
+kubectl krew 
+kubectl krew install rabbitmq
+
+
+## Install Cluster Operator
+
+helm install rabbitmq-cluster-op -n rabbitmq-cluster-op --create-namespace bitnami/rabbitmq-cluster-operator -f /home/ubuntu/bitnami/charts/bitnami/rabbitmq-cluster-operator/values.yaml
+
+
+## metrics
+rabbitmq-plugins enable rabbitmq_prometheus
+
+To monitor all RabbitMQ clusters, run:
+kubectl apply --filename https://raw.githubusercontent.com/rabbitmq/cluster-operator/main/observability/prometheus/monitors/rabbitmq-servicemonitor.yml
+
+To monitor RabbitMQ Cluster Operator, run:
+kubectl apply --filename https://raw.githubusercontent.com/rabbitmq/cluster-operator/main/observability/prometheus/monitors/rabbitmq-cluster-operator-podmonitor.yml
+
+
+
+
+
+
+
+
+
+
+kubectl create clusterrolebinding default-tkg-admin-privileged-binding --clusterrole=psp:vmware-system-privileged --group=system:authenticated
+kubectl apply -f "https://github.com/rabbitmq/cluster-operator/releases/latest/download/cluster-operator.yml"
+kubectl get all -n rabbitmq-system
+
+kubectl get customresourcedefinitions.apiextensions.k8s.io
+
+
+
+## Create the simplest RabbitMQ Cluster.
+
+
+cat > hello-world-rabbitmq.yaml <<-EOF
+apiVersion: rabbitmq.com/v1beta1
+kind: RabbitmqCluster
+metadata:
+  name: hello-world
+EOF
+
+kubectl apply -f hello-world-rabbitmq.yaml
+
+
+cat > prometheus-rabbitmq.yaml <<-EOF
+apiVersion: rabbitmq.com/v1beta1
+kind: RabbitmqCluster
+metadata:
+  name: hello-world
+  labels:
+    prometheus.io/port: 9000
+    prometheus.io/scrape: true
+EOF
+
+kubectl apply -f prometheus-rabbitmq.yaml
+
+username="$(kubectl get secret hello-world-default-user -o jsonpath='{.data.username}' | base64 --decode)"
+echo "username: $username"
+password="$(kubectl get secret hello-world-default-user -o jsonpath='{.data.password}' | base64 --decode)"
+echo "password: $password"
+
+
+kubectl port-forward "service/hello-world" 15672
+
+curl -u$username:$password localhost:15672/api/overview
+
+
+username="$(kubectl get secret hello-world-default-user -o jsonpath='{.data.username}' | base64 --decode)"
+password="$(kubectl get secret hello-world-default-user -o jsonpath='{.data.password}' | base64 --decode)"
+service="$(kubectl get service hello-world -o jsonpath='{.spec.clusterIP}')"
+kubectl run perf-test --image=pivotalrabbitmq/perf-test -- --uri amqp://$username:$password@$service
+
+kubectl logs --follow perf-test
+
+helm install prometheus  -n prometheus --create-namespace bitnami/kube-prometheus -f ~/bitnami/charts/bitnami/kube-prometheus/values.yaml
+helm install grafana -n grafana --create-namespace bitnami/grafana -f ~/bitnami/charts/bitnami/grafana/values.yaml
+  echo "User: admin"
+    echo "Password: $(kubectl get secret grafana-admin --namespace grafana -o jsonpath="{.data.GF_SECURITY_ADMIN_PASSWORD}" | base64 -d)"
