@@ -20,7 +20,7 @@ helm install rabbitmq-cluster-op -n rabbitmq-cluster-op --create-namespace bitna
 
 
 ## metrics
-rabbitmq-plugins enable rabbitmq_prometheus
+sudo rabbitmq-plugins enable rabbitmq_prometheus
 
 To monitor all RabbitMQ clusters, run:
 kubectl apply --filename https://raw.githubusercontent.com/rabbitmq/cluster-operator/main/observability/prometheus/monitors/rabbitmq-servicemonitor.yml
@@ -28,6 +28,7 @@ kubectl apply --filename https://raw.githubusercontent.com/rabbitmq/cluster-oper
 To monitor RabbitMQ Cluster Operator, run:
 kubectl apply --filename https://raw.githubusercontent.com/rabbitmq/cluster-operator/main/observability/prometheus/monitors/rabbitmq-cluster-operator-podmonitor.yml
 
+kubectl rabbitmq perf-test test4 --rate 100
 
 
 
