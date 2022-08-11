@@ -15,6 +15,8 @@ kubectl krew install rabbitmq
 
 
 ## Install Cluster Operator
+kubectl apply -f https://raw.githubusercontent.com/rancher/local-path-provisioner/master/deploy/local-path-storage.yaml
+kubectl annotate storageclass local-path storageclass.kubernetes.io/is-default-class=true
 
 helm install rabbitmq-cluster-op -n rabbitmq-cluster-op --create-namespace bitnami/rabbitmq-cluster-operator -f /home/ubuntu/bitnami/charts/bitnami/rabbitmq-cluster-operator/values.yaml
 
@@ -71,9 +73,9 @@ EOF
 
 kubectl apply -f prometheus-rabbitmq.yaml
 
-username="$(kubectl get secret hello-world-default-user -o jsonpath='{.data.username}' | base64 --decode)"
+username="$(kubectl get secret rb-test-1-default-user -o jsonpath='{.data.username}' | base64 --decode)"
 echo "username: $username"
-password="$(kubectl get secret hello-world-default-user -o jsonpath='{.data.password}' | base64 --decode)"
+password="$(kubectl get secret rb-test-1-default-user -o jsonpath='{.data.password}' | base64 --decode)"
 echo "password: $password"
 
 
