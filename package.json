@@ -2,7 +2,7 @@
   "name": "rabbitmq",
   "version": "1.0.0",
   "description": "",
-  "main": "pub.js",
+  "main": "ref.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -18,7 +18,7 @@
   },
   "homepage": "https://github.com/egedsoft/rabbitmq#readme",
   "dependencies": {
-    "amqp-connection-manager": "^4.1.5",
+    "amqp-connection-manager": "^4.1.6",
     "amqplib": "^0.10.2"
   }
 }

@@ -1,26 +1,23 @@
-const amqp = require("amqplib");
+//const amqp = require("amqplib");
+const amqp = require("amqp-connection-manager");
 
-const msg = {number: 19}
+const msg = {number: 19};
+const queueName = 'jobs99bbb';
+
+
 connect();
 async function connect(){
 
     try{
-        const connection = await amqp.connect("amqp://appuser:apppassword1@10.99.92.26:5672/appvhost");
+        const connection = await amqp.connect(["amqp://appuser:apppassword1@10.99.92.26:5672/appvhost"]);
         const channel = await connection.createChannel();
-       // q_jobs1 = channel.checkQueue("jobs5");
-        //console.log(q_jobs1.passive);
-        channel.assertQueue("jobs5",{
-            passive: true
-        });
-        channel.sendToQueue("jobs5",Buffer.from(JSON.stringify(msg)));
-        console.log(`job sent111: ${msg}`)
-
-        
-
-
-
+        channel.checkQueue
+        channel.assertQueue(queueName);
+        channel.sendToQueue(queueName,Buffer.from(JSON.stringify(msg)));
+        console.log(`job sent: ${msg.number}`); 
     }
     catch (ex){
+        console.log ("---ERR---");
         console.error(ex);
     }
 }
