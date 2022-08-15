@@ -1,41 +1,39 @@
 const amqp = require('amqp-connection-manager');
 //const {wait} = require('../lib/helpers');
 
+
+const connectionString = 'amqp://appuser:apppassword1@10.99.92.26:5672/appvhost';
 const msg = {number: 19};
-const queueName = 'abc';
-const EXCHANGE_NAME = 'amqp-connection-manager-sample2-ex';
+const queueName = 'q-test-1';
+const EXCHANGE_NAME = 'ex-test-12';
 
-// Create a connetion manager
-const connection = amqp.connect(['amqp://appuser:apppassword1@10.99.92.26:5672/appvhost']);
-connection.on('connect', () => console.log('Connected!'));
-connection.on('disconnect', err => console.log('Disconnected.', err.stack));
 
-// Create a channel wrapper
-const channelWrapper = connection.createChannel({
-    json: true,
-    setup: channel => channel.checkQueue(queueName)
-   // setup: channel => channel.assertQueue(queueName, { passive: true })
 
-  //  setup: channel => channel.assertExchange(EXCHANGE_NAME, 'topic',{ passive: true }),
+// Create a new connection manager
+var connection = amqp.connect([connectionString]);
 
+// Ask the connection manager for a ChannelWrapper.  Specify a setup function to
+// run every time we reconnect to the broker.
+var channelWrapper = connection.createChannel({
+  json: true,
+  setup: function (channel) {
+    // `channel` here is a regular amqplib `ConfirmChannel`.
+    // Note that `this` here is the channelWrapper instance.
+     res =  channel.checkQueue(queueName);
+    return res;
+    return channel.assertQueue(queueName, { durable: true, passive: true });
+  },
 });
 
-
-// Send messages until someone hits CTRL-C or something goes wrong...
-function sendMessage() {
-    channelWrapper.sendToQueue(queueName,Buffer.from(JSON.stringify(msg)))
-  //  channelWrapper.publish(EXCHANGE_NAME, "test", {time: Date.now()}, { contentType: 'application/json', persistent: true })
-    .then(function() {
-        console.log("Message sent");
-        return 'aa'; //wait(1000);
-    })
-    .then(() => sendMessage())
-    .catch(err => {
-        console.log("Message was rejected:", err.stack);
-        channelWrapper.close();
-        connection.close();
-    });
-};
-
-console.log("Sending messages...");
-sendMessage();
+// Send some messages to the queue.  If we're not currently connected, these will be queued up in memory
+// until we connect.  Note that `sendToQueue()` and `publish()` return a Promise which is fulfilled or rejected
+// when the message is actually sent (or not sent.)
+//res =  channelWrapper.checkQueue(queueName);
+channelWrapper
+  .sendToQueue(queueName, { hello: 'world' })
+  .then(function () {
+    return console.log('Message was sent!  Hooray!');
+  })
+  .catch(function (err) {
+    return console.log('Message was rejected...  Boo!');
+  });
