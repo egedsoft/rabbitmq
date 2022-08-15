@@ -1,0 +1,12 @@
+apiVersion: rabbitmq.com/v1beta1
+kind: Policy
+metadata:
+  name: lazy
+spec:
+  name: lazy
+  pattern: "^lazy-" # matches any queue begins with "lazy-"
+  applyTo: "queues"
+  definition:
+    queue-mode: lazy
+  rabbitmqClusterReference:
+    name: production
