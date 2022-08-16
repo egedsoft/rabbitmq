@@ -2,7 +2,6 @@ apiVersion: rabbitmq.com/v1beta1
 kind: Permission
 metadata:
   name: guest-permission
-  namespace: rabbitmq-demo2
 spec:
   vhost: "/"
   user: "guest" # name of the RabbitMQ user

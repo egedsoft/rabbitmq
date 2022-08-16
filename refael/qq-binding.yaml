@@ -14,8 +14,9 @@ metadata:
 spec:
   vhost: "/" # default to '/' if not provided
   source: reception-status-frame-delivered-to-globus-exchange # an existing exchange
-  destination: reception-status-frame-delivered-to-globus # an existing queue or exchange                  ----
+  destination: qq-reception-status-frame-delivered-to-globus # an existing queue or exchange                  ----
   destinationType: queue # can be 'queue' or 'exchange'               ----
   routingKey: ""                                    #    ----
   rabbitmqClusterReference:
     name: rb-cluster-1 # rabbitmqCluster must exist in the same namespace as this resource
+

@@ -9,11 +9,11 @@
 apiVersion: rabbitmq.com/v1beta1
 kind: Queue
 metadata:
-  name: reception-status-frame-delivered-to-globus-5-dlx
-  
+  name: qq-reception-status-frame-delivered-to-globus-5-dlx
 spec:
-  name: reception-status-frame-delivered-to-globus_5-dlx
+  name: qq-reception-status-frame-delivered-to-globus_5-dlx
   vhost: "/"
+  type: quorum
   autoDelete: false
   durable: true
   rabbitmqClusterReference:
@@ -34,10 +34,12 @@ spec:
 apiVersion: rabbitmq.com/v1beta1
 kind: Queue
 metadata:
-  name: reception-status-frame-delivered-to-globus
+  name: qq-reception-status-frame-delivered-to-globus
+  
 spec:
-  name: reception-status-frame-delivered-to-globus
+  name: qq-reception-status-frame-delivered-to-globus
   vhost: "/"
+  type: quorum
   autoDelete: false
   durable: true
   rabbitmqClusterReference:

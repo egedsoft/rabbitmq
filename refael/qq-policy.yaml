@@ -10,14 +10,21 @@
 apiVersion: rabbitmq.com/v1beta1
 kind: Policy
 metadata:
-  name: 5-dlx
+  name: qq-5-dlx
 spec:
-  name: 5-dlx
-  pattern: "^reception-status-frame-delivered-to-globus_5-dlx$" # matches any queue begins with "lazy-"
+  name: qq-5-dlx
+  pattern: "^qq-reception-status-frame-delivered-to-globus_5-dlx$" 
   applyTo: "queues" # set to 'queues', 'exchanges', or 'all'
   definition:
+    dead-letter-strategy: at-least-once
+    overflow: reject-publish  
+    ## It is recommended to additionally configure max-length or max-length-bytes to prevent excessive message buildup in the source quorum queue
+    # max-length: 1000
     dead-letter-exchange: reception-status-frame-delivered-to-globus-exchange
     message-ttl: 5000
+
+
+
   rabbitmqClusterReference:
     name: rb-cluster-1
 
@@ -34,13 +41,16 @@ spec:
 apiVersion: rabbitmq.com/v1beta1
 kind: Policy
 metadata:
-  name: globus
-  
+  name: qq-globus
 spec:
-  name: globus
-  pattern: "^reception-status-frame-delivered-to-globus$" # matches any queue begins with "lazy-"
+  name: qq-globus
+  pattern: "^qq-reception-status-frame-delivered-to-globus$" 
   applyTo: "queues" # set to 'queues', 'exchanges', or 'all'
   definition:
+    dead-letter-strategy: at-least-once
+    overflow: reject-publish  
+    ## It is recommended to additionally configure max-length or max-length-bytes to prevent excessive message buildup in the source quorum queue
+    # max-length: 1000  
     dead-letter-exchange: reception-status-frame-delivered-to-globus_5-dlx-exchange
   rabbitmqClusterReference:
     name: rb-cluster-1

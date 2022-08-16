@@ -12,7 +12,6 @@ apiVersion: rabbitmq.com/v1beta1
 kind: Exchange
 metadata:
   name: reception-status-frame-delivered-to-globus-exchange
-  namespace: rabbitmq-demo2
 spec:
   name: reception-status-frame-delivered-to-globus-exchange # name of the exchange
   vhost: "/"
