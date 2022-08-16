@@ -1,0 +1,169 @@
+{
+    "rabbitmq": {
+      "connectionStrings": [
+        "amqp://guest:guest@rabbitmq-ha.db:5672"
+      ],
+      "heartbeatInterval": 20,
+      "closeScan": {
+        "qName": "closeScan_imiliteoverlaycreator",
+        "qTTL": "10",
+        "qExchangeName": "imiliteoverlaycreator_close_scanid",
+        "type": "fanout",
+        "parallelTasks": 5
+      },
+      "bulkerJob": {
+        "qName": "bulk_job_staging",
+        "qTTL": "10",
+        "type": "fanout"
+      },
+      "overlayCreator": {
+        "qName": "imiliteoverlaycreator_overlaycreator_job",
+        "qTTL": "1800"
+      },
+      "frameArrived": {
+        "qName": "framearrived_imiliteoverlaycreator",
+        "qExchangeName": "overlay-creator-frame-arrived-exchange",
+        "type": "topic",
+        "routingKeys": [
+          "imilite-overlaycreator"
+        ],
+        "qTTL": "10",
+        "parallelTasks": 10  #TODO
+      },
+      "solutionResult": {
+        "qName": "solutionresult_imiliteoverlaycreator_solutions_staging",
+        "qExchangeName": "bundle-result-exchange-staging",
+        "type": "topic",
+        "routingKeys": [
+          "imilite-overlaycreator"
+        ],
+        "qTTL": "10"
+      },
+      "mosaicResult": {
+        "qName": "mosaicResult_imiliteoverlaycreator_overlay_staging",
+        "qExchangeName": "mosaic-result-exchange-staging",
+        "type": "topic",
+        "routingKeys": [
+          "imilite-overlaycreator"
+        ],
+        "qTTL": "10"
+      },
+      "fallback": {
+        "qExchangeName": "overlaycreator_fallback",
+        "type": "fanout"
+      },
+      "overlayCreated": {
+        "exchangeName": "overlay-created-exchange",
+        "failureExchangeName": "overlay-creation-failed-exchange"
+      },
+      "overlayCreatedWithMosaic": {
+        "exchangeName": "overlay-created-with-mosaic-exchange",
+        "failureExchangeName": "overlay-creation-with-mosaic-failed-exchange"
+      }
+    }
+  }
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+
+{
+    "rabbitmq": {
+      "connectionStrings": [
+        "amqp://guest:guest@rabbitmq-ha.db:5672"
+      ],
+      "heartbeatInterval": 20,
+      "channels": {
+        "uploadResult": {
+          "qName": "upload-result",
+          "exchangeName": "spiderman_upload_result_staging",
+          "qTTL": 10
+        },
+        "frameBuilder": {
+          "qName": "builder_stream",
+          "exchangeName": "spiderman_frame_builder_staging",
+          "qTTL": 10
+        }
+      },
+      "enqueue": {
+        "retries": 3,
+        "factor": 1,
+        "minTimeout": 60000,
+        "randomize": "false"
+      }
+    }
+  }
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+{
+    "rabbitmq": {
+      "connectionStrings": [
+        "amqp://guest:guest@rabbitmq-ha.db:5672"
+      ],
+      "isPublishEnabled": "true",
+      "newFrameExchangeName": "new-frame-exchange-staging",
+      "newFrameExtensionsExchangeName": "new-frame-extensions-exchange-staging",
+      "overlayCreatorFrameArrivedExchangeName": "overlay-creator-frame-arrived-exchange",
+      "blockEnhancerExchangeName": "block-enhancer-exchange",
+      "heartbeatInterval": 20,
+      "frame": {
+        "qName": "rx_stratego_frame_staging",
+        "qTTL": "10",
+        "parallelTasks": "100"
+      },
+      "solution": {
+        "qName": "rx_stratego_solution_staging",
+        "qTTL": "10",
+        "parallelTasks": "100"
+      },
+      "frameFiles": {
+        "qName": "rx_stratego_frame_files_staging",
+        "qTTL": "10",
+        "parallelTasks": "100"
+      },
+      "additionalImage": {
+        "qName": "rx_stratego_additional_image_staging",
+        "qTTL": "10",
+        "parallelTasks": "100"
+      },
+      "globalFile": {
+        "qName": "rx_stratego_global_file_staging",
+        "qTTL": "10",
+        "parallelTasks": "100"
+      },
+      "basicFrame": {
+        "qName": "rx_stratego_basic_frame",
+        "qTTL": "10",
+        "parallelTasks": "100"
+      },
+      "frameSavedToDb": {
+        "exchangeName": "frame-saved-to-db-exchange",
+        "failureExchangeName": "frame-save-to-db-failed-exchange"
+      },
+      "solutionCreated": {
+        "exchangeName": "solution-created-exchange",
+        "failureExchangeName": "solution-creation-failed-exchange"
+      },
+      "block": {
+        "qName": "rx_stratego_block",
+        "qTTL": "10",
+        "parallelTasks": "100"
+      },
+      "blockFrame": {
+        "qName": "rx_stratego_blockframe",
+        "qTTL": "10",
+        "parallelTasks": "100"
+      },
+      "jobTypes": [
+        "frame",
+        "additionalImage",
+        "globalFile",
+        "solution",
+        "frameFiles",
+        "basicFrame",
+        "block",
+        "blockFrame"
+      ]
+    }
+  }
