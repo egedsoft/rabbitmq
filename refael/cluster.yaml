@@ -1,0 +1,17 @@
+apiVersion: rabbitmq.com/v1beta1
+kind: RabbitmqCluster
+metadata:
+  labels:
+    app: rb-cluster-1
+  name: rb-cluster-1
+  namespace: rabbitmq-demo2
+spec:
+  replicas: 1
+  #image: rabbitmq:3.9.11
+  service:
+    type: LoadBalancer
+  rabbitmq:
+    additionalConfig: |
+      loopback_users = none
+  #     default_user = guest
+  #     default_pass = guest

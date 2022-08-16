@@ -1,0 +1,22 @@
+# {
+#   "source":"reception-status-frame-delivered-to-globus-exchange",
+#   "vhost":"/",
+#   "destination":"reception-status-frame-delivered-to-globus",
+#   "destination_type":"queue",
+#   "routing_key":"",
+#   "arguments":{}
+# }
+
+apiVersion: rabbitmq.com/v1beta1
+kind: Binding
+metadata:
+  name: binding
+  namespace: rabbitmq-demo2
+spec:
+  vhost: "/" # default to '/' if not provided
+  source: reception-status-frame-delivered-to-globus-exchange # an existing exchange
+  destination: reception-status-frame-delivered-to-globus # an existing queue or exchange                  ----
+  destinationType: queue # can be 'queue' or 'exchange'               ----
+  routingKey: ""                                    #    ----
+  rabbitmqClusterReference:
+    name: rb-cluster-1 # rabbitmqCluster must exist in the same namespace as this resource

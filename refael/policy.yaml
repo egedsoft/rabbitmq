@@ -1,0 +1,47 @@
+# {
+# "name":"reception-status-frame-delivered-to-globus_5-dlx",
+# "vhost":"/",
+# "durable":true,
+# "auto_delete":false,
+# "arguments":{"x-dead-letter-exchange":"reception-status-frame-delivered-to-globus-exchange","x-message-ttl":5000}
+# }
+
+
+apiVersion: rabbitmq.com/v1beta1
+kind: Policy
+metadata:
+  name: 5-dlx
+  namespace: rabbitmq-demo2
+spec:
+  name: 5-dlx
+  pattern: "^reception-status-frame-delivered-to-globus_5-dlx$" # matches any queue begins with "lazy-"
+  applyTo: "queues" # set to 'queues', 'exchanges', or 'all'
+  definition:
+    dead-letter-exchange: reception-status-frame-delivered-to-globus-exchange
+    message-ttl: 5000
+  rabbitmqClusterReference:
+    name: rb-cluster-1
+
+---
+
+#  {
+#   "name":"reception-status-frame-delivered-to-globus",
+#   "vhost":"/",
+#   "durable":true,
+#   "auto_delete":false,
+#   "arguments":{"x-dead-letter-exchange":"reception-status-frame-delivered-to-globus_5-dlx-exchange"}
+# }
+
+apiVersion: rabbitmq.com/v1beta1
+kind: Policy
+metadata:
+  name: globus
+  namespace: rabbitmq-demo2
+spec:
+  name: globus
+  pattern: "^reception-status-frame-delivered-to-globus$" # matches any queue begins with "lazy-"
+  applyTo: "queues" # set to 'queues', 'exchanges', or 'all'
+  definition:
+    dead-letter-exchange: reception-status-frame-delivered-to-globus_5-dlx-exchange
+  rabbitmqClusterReference:
+    name: rb-cluster-1

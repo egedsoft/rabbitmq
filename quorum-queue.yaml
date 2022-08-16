@@ -1,0 +1,13 @@
+apiVersion: rabbitmq.com/v1beta1
+kind: Queue
+metadata:
+  name: qq-framearrived-imiliteoverlaycreator
+  namespace: rabbitmq-demo2
+spec:
+  name: qq-framearrived_imiliteoverlaycreator # name of the queue
+  vhost: "/"
+  type: quorum # without providing a queue type, rabbitmq creates a classic queue
+  autoDelete: false
+  durable: true # seting 'durable' to false means this queue won't survive a server restart
+  rabbitmqClusterReference:
+    name: rb-cluster-1
