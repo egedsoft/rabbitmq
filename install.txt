@@ -73,14 +73,14 @@ EOF
 
 kubectl apply -f prometheus-rabbitmq.yaml
 
-username="$(kubectl get secret -n rabbitmq-demo2 rb-cluster-1-default-user -o jsonpath='{.data.username}' | base64 --decode)"
+username="$(kubectl get secret  rb-test-3-default-user -o jsonpath='{.data.username}' | base64 --decode)"
 echo "username: $username"
-password="$(kubectl get secret -n rabbitmq-demo2 rb-cluster-1-default-user -o jsonpath='{.data.password}' | base64 --decode)"
+password="$(kubectl get secret   rb-test-3-default-user -o jsonpath='{.data.password}' | base64 --decode)"
 echo "password: $password"
 
-username="$(kubectl get secret -n rabbitmq-demo rb-cluster-1-default-user -o jsonpath='{.data.username}' | base64 --decode)"
+username="$(kubectl get secret -n default rb-cluster-1-default-user -o jsonpath='{.data.username}' | base64 --decode)"
 echo "username: $username"
-password="$(kubectl get secret -n rabbitmq-demo rb-cluster-1-default-user -o jsonpath='{.data.password}' | base64 --decode)"
+password="$(kubectl get secret -n default rb-cluster-1-default-user -o jsonpath='{.data.password}' | base64 --decode)"
 echo "password: $password"
 
 kubectl port-forward "service/hello-world" 15672

@@ -61,7 +61,7 @@ diagnosticMode:
 rabbitmqImage:
   registry: docker.io
   repository: bitnami/rabbitmq
-  tag: 3.10.2-debian-10-r4
+  tag: 3.10.7-debian-11-r3
   ## Optionally specify an array of imagePullSecrets.
   ## Secrets must be manually created in the namespace.
   ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-rabbitmqImage-private-registry/
@@ -81,7 +81,7 @@ rabbitmqImage:
 credentialUpdaterImage:
   registry: docker.io
   repository: bitnami/rmq-default-credential-updater
-  tag: 1.0.2-scratch-r2
+  tag: 1.0.2-scratch-r6
   ## Optionally specify an array of imagePullSecrets.
   ## Secrets must be manually created in the namespace.
   ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-credentialUpdaterImage-private-registry/
@@ -103,7 +103,7 @@ clusterOperator:
   image:
     registry: docker.io
     repository: bitnami/rabbitmq-cluster-operator
-    tag: 1.13.1-scratch-r2
+    tag: 1.14.0-scratch-r5
     ## Specify a imagePullPolicy
     ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
     ## ref: https://kubernetes.io/docs/user-guide/images/#pre-pulling-images
@@ -409,7 +409,6 @@ clusterOperator:
       annotations:
         prometheus.io/scrape: "true"
         prometheus.io/port: "{{ .Values.clusterOperator.metrics.service.ports.http }}"
-        #prometheus.io/port: "9000"
       ## @param clusterOperator.metrics.service.sessionAffinity Session Affinity for Kubernetes service, can be "None" or "ClientIP"
       ## If "ClientIP", consecutive client requests will be directed to the same Pod
       ## ref: https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies
@@ -424,12 +423,12 @@ clusterOperator:
     serviceMonitor:
       ## @param clusterOperator.metrics.serviceMonitor.enabled Specify if a servicemonitor will be deployed for prometheus-operator
       ##
-      enabled: false
+      enabled: true
       ## @param clusterOperator.metrics.serviceMonitor.namespace Namespace which Prometheus is running in
       ## e.g:
       ## namespace: monitoring
       ##
-      namespace: ""
+      namespace: "prometheus"
       ## @param clusterOperator.metrics.serviceMonitor.jobLabel Specify the jobLabel to use for the prometheus-operator
       ##
       jobLabel: app.kubernetes.io/name
@@ -482,7 +481,7 @@ msgTopologyOperator:
   image:
     registry: docker.io
     repository: bitnami/rmq-messaging-topology-operator
-    tag: 1.6.0-scratch-r0
+    tag: 1.7.1-scratch-r3
     ## Specify a imagePullPolicy
     ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
     ## ref: https://kubernetes.io/docs/user-guide/images/#pre-pulling-images
@@ -809,7 +808,7 @@ msgTopologyOperator:
   metrics:
     ## @param msgTopologyOperator.metrics.enabled Create a service for accessing the metrics endpoint
     ##
-    enabled: false
+    enabled: true
     ## Metrics service parameters
     ##
     service:
@@ -873,7 +872,7 @@ msgTopologyOperator:
       ## e.g:
       ## namespace: monitoring
       ##
-      namespace: ""
+      namespace: "prometheus"
       ## @param msgTopologyOperator.metrics.serviceMonitor.jobLabel Specify the jobLabel to use for the prometheus-operator
       ##
       jobLabel: app.kubernetes.io/name
