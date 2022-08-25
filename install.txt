@@ -14,11 +14,16 @@ kubectl krew
 kubectl krew install rabbitmq
 
 
+## new cluster
+kubectl create clusterrolebinding default-tkg-admin-privileged-binding --clusterrole=psp:vmware-system-privileged --group=system:authenticated
+
+
+
 ## Install Cluster Operator
 kubectl apply -f https://raw.githubusercontent.com/rancher/local-path-provisioner/master/deploy/local-path-storage.yaml
 kubectl annotate storageclass local-path storageclass.kubernetes.io/is-default-class=true
 
-helm install rabbitmq-cluster-op -n rabbitmq-cluster-op --create-namespace bitnami/rabbitmq-cluster-operator -f /home/ubuntu/bitnami/charts/bitnami/rabbitmq-cluster-operator/values.yaml
+helm install rb-op -n rb-op --create-namespace bitnami/rabbitmq-cluster-operator -f /home/ubuntu/bitnami-new/charts/bitnami/rabbitmq-cluster-operator/values.yaml.org
 
 
 ## metrics
@@ -30,17 +35,20 @@ kubectl apply --filename https://raw.githubusercontent.com/rabbitmq/cluster-oper
 To monitor RabbitMQ Cluster Operator, run:
 kubectl apply --filename https://raw.githubusercontent.com/rabbitmq/cluster-operator/main/observability/prometheus/monitors/rabbitmq-cluster-operator-podmonitor.yml
 
-kubectl rabbitmq perf-test test4 --rate 100
+kubectl rabbitmq perf-test rb-cluster-1 --rate 1000
+kubectl rabbitmq perf-test rabbitmqcluster-gg --rate 100
+
+
+
+for x in {1..1000}; do  curl -u guest:guest -H "content-type:application/json" -X POST -d'{"properties":{"delivery_mode":2},"routing_key":"QueueName","payload":"HI","payload_encoding":"string"}' http://10.99.92.31:15672/api/exchanges/%2F/reception-status-frame-delivered-to-globus-exchange/publish; done &
+
+
+for x in {1..100}; do curl -i -u guest:guest -H "content-type:application/json" -X POST http://10.99.92.31:15672/api/queues/%2F/qq-reception-status-frame-delivered-to-globus/get -d'{"count":500,"requeue":true,"encoding":"base64","truncate":5000,"requeue":false,"ackmode":"ack_requeue_false"}'; done &
 
 
 
 
 
-
-
-
-
-kubectl create clusterrolebinding default-tkg-admin-privileged-binding --clusterrole=psp:vmware-system-privileged --group=system:authenticated
 kubectl apply -f "https://github.com/rabbitmq/cluster-operator/releases/latest/download/cluster-operator.yml"
 kubectl get all -n rabbitmq-system
 
@@ -78,10 +86,19 @@ echo "username: $username"
 password="$(kubectl get secret   rb-test-3-default-user -o jsonpath='{.data.password}' | base64 --decode)"
 echo "password: $password"
 
-username="$(kubectl get secret -n default rb-cluster-1-default-user -o jsonpath='{.data.username}' | base64 --decode)"
+username="$(kubectl get secret -n default rabbitmqcluster-gg-default-user -o jsonpath='{.data.username}' | base64 --decode)"
 echo "username: $username"
-password="$(kubectl get secret -n default rb-cluster-1-default-user -o jsonpath='{.data.password}' | base64 --decode)"
+password="$(kubectl get secret -n default rabbitmqcluster-gg-default-user -o jsonpath='{.data.password}' | base64 --decode)"
 echo "password: $password"
+
+
+
+    image: rabbitmq:3.10.7
+    image: rabbitmq:3.10.7
+    image: docker.io/library/rabbitmq:3.10.7
+    image: docker.io/library/rabbitmq:3.10.7
+
+
 
 kubectl port-forward "service/hello-world" 15672
 
