@@ -5,7 +5,10 @@ metadata:
     app: rb-cluster-1
   name: rb-cluster-1
 spec:
-  replicas: 3
+  persistence:
+    storageClassName: local-path
+    storage: 50Mi
+  replicas: 2
   #image: rabbitmq:3.9.11
   service:
     type: LoadBalancer
