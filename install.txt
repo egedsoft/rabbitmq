@@ -86,9 +86,9 @@ echo "username: $username"
 password="$(kubectl get secret   rb-test-3-default-user -o jsonpath='{.data.password}' | base64 --decode)"
 echo "password: $password"
 
-username="$(kubectl get secret -n default rabbitmqcluster-gg-default-user -o jsonpath='{.data.username}' | base64 --decode)"
+username="$(kubectl get secret -n default rb-cluster-2-default-user -o jsonpath='{.data.username}' | base64 --decode)"
 echo "username: $username"
-password="$(kubectl get secret -n default rabbitmqcluster-gg-default-user -o jsonpath='{.data.password}' | base64 --decode)"
+password="$(kubectl get secret -n default rb-cluster-2-default-user -o jsonpath='{.data.password}' | base64 --decode)"
 echo "password: $password"
 
 

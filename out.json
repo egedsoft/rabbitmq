@@ -1,0 +1,215 @@
+{
+    "event":"user.authentication.success",
+    "ssl":false,
+    "auth_mechanism":"PLAIN",
+    "protocol":"{0,9,1}",
+    "peer_port":56425,
+    "peer_host":"{0,0,0,0,0,65535,2645,769}",
+    "connection_name":"10.85.3.1:56425 -> 10.85.2.58:5672",
+    "host":"{0,0,0,0,0,65535,2645,570}",
+    "name":"guest",
+    "connection_type":"network",
+    "timestamp_in_ms":1662465202825
+ }{
+    "event":"connection.created",
+    "user_who_performed_action":"guest",
+    "node":"rabbit@rb-cluster-2-server-0.rb-cluster-2-nodes.default",
+    "connected_at":1662465202810,
+    "client_properties":[
+       "{<<\"product\">>,longstr,<<\"amqplib\">>}",
+       "{<<\"version\">>,longstr,<<\"0.10.3\">>}",
+       "{<<\"platform\">>,longstr,<<\"Node.JS v16.16.0\">>}",
+       "{<<\"information\">>,longstr,<<\"http://squaremo.github.io/amqp.node\">>}",
+       "{<<\"capabilities\">>,table,[{<<\"publisher_confirms\">>,bool,true},{<<\"exchange_exchange_bindings\">>,bool,true},{<<\"basic.nack\">>,bool,true},{<<\"consumer_cancel_notify\">>,bool,true},{<<\"connection.blocked\">>,bool,true},{<<\"authentication_failure_close\">>,bool,true}]}"
+    ],
+    "channel_max":2047,
+    "frame_max":4096,
+    "timeout":5,
+    "vhost":"/",
+    "user":"guest",
+    "protocol":"{0,9,1}",
+    "ssl_hash":"",
+    "ssl_cipher":"",
+    "ssl_key_exchange":"",
+    "ssl_protocol":"",
+    "auth_mechanism":"PLAIN",
+    "peer_cert_validity":"",
+    "peer_cert_issuer":"",
+    "peer_cert_subject":"",
+    "ssl":false,
+    "peer_host":"{0,0,0,0,0,65535,2645,769}",
+    "host":"{0,0,0,0,0,65535,2645,570}",
+    "peer_port":56425,
+    "port":5672,
+    "name":"10.85.3.1:56425 -> 10.85.2.58:5672",
+    "pid":"<rabbit@rb-cluster-2-server-0.rb-cluster-2-nodes.default.1662464460.4924.0>",
+    "type":"network",
+    "timestamp_in_ms":1662465202849
+ }{
+    "event":"channel.created",
+    "user_who_performed_action":"guest",
+    "vhost":"/",
+    "user":"guest",
+    "number":1,
+    "connection":"<rabbit@rb-cluster-2-server-0.rb-cluster-2-nodes.default.1662464460.4924.0>",
+    "name":"10.85.3.1:56425 -> 10.85.2.58:5672 (1)",
+    "pid":"<rabbit@rb-cluster-2-server-0.rb-cluster-2-nodes.default.1662464460.4933.0>",
+    "timestamp_in_ms":1662465202857
+ }{
+    "event":"consumer.created",
+    "user_who_performed_action":"guest",
+    "arguments":[
+       
+    ],
+    "prefetch_count":1,
+    "queue":"queue-0",
+    "vhost":"/",
+    "channel":"<rabbit@rb-cluster-2-server-0.rb-cluster-2-nodes.default.1662464460.4933.0>",
+    "ack_required":true,
+    "exclusive":false,
+    "consumer_tag":"amq.ctag-Sk9kil8QTTtZvx02kRHaMA",
+    "timestamp_in_ms":1662465202880
+ }{
+    "event":"connection.closed",
+    "client_properties":[
+       
+    ],
+    "node":"rabbit@rb-cluster-2-server-0.rb-cluster-2-nodes.default",
+    "pid":"<rabbit@rb-cluster-2-server-0.rb-cluster-2-nodes.default.1662464460.4937.0>",
+    "name":"10.85.2.1:14143 -> 10.85.2.58:5672",
+    "timestamp_in_ms":1662465203056
+ }{
+    "event":"connection.closed",
+    "client_properties":[
+       
+    ],
+    "node":"rabbit@rb-cluster-2-server-0.rb-cluster-2-nodes.default",
+    "pid":"<rabbit@rb-cluster-2-server-0.rb-cluster-2-nodes.default.1662464460.4942.0>",
+    "name":"10.85.2.1:45120 -> 10.85.2.58:5672",
+    "timestamp_in_ms":1662465204144
+ }{
+    "event":"connection.closed",
+    "client_properties":[
+       
+    ],
+    "node":"rabbit@rb-cluster-2-server-0.rb-cluster-2-nodes.default",
+    "pid":"<rabbit@rb-cluster-2-server-0.rb-cluster-2-nodes.default.1662464460.4953.0>",
+    "name":"10.85.3.1:35941 -> 10.85.2.58:5672",
+    "timestamp_in_ms":1662465205145
+ }{
+    "event":"node.node.stats",
+    "send_bytes":13525,
+    "recv_bytes":867,
+    "sock_port":25672,
+    "sock_addr":"10.85.2.58",
+    "peer_port":35046,
+    "peer_addr":"10.85.2.58",
+    "route":"{'rabbit@rb-cluster-2-server-0.rb-cluster-2-nodes.default','rabbitmqcli-465-rabbit@rb-cluster-2-server-0.rb-cluster-2-nodes.default'}",
+    "timestamp_in_ms":1662465205576
+ }{
+    "event":"connection.closed",
+    "client_properties":[
+       
+    ],
+    "node":"rabbit@rb-cluster-2-server-0.rb-cluster-2-nodes.default",
+    "pid":"<rabbit@rb-cluster-2-server-0.rb-cluster-2-nodes.default.1662464460.4958.0>",
+    "name":"10.85.0.1:43892 -> 10.85.2.58:5672",
+    "timestamp_in_ms":1662465205883
+ }{
+    "event":"connection.closed",
+    "client_properties":[
+       
+    ],
+    "node":"rabbit@rb-cluster-2-server-0.rb-cluster-2-nodes.default",
+    "pid":"<rabbit@rb-cluster-2-server-0.rb-cluster-2-nodes.default.1662464460.4967.0>",
+    "name":"10.85.1.1:13203 -> 10.85.2.58:5672",
+    "timestamp_in_ms":1662465207792
+ }{
+    "event":"connection.closed",
+    "client_properties":[
+       "{<<\"product\">>,longstr,<<\"amqplib\">>}",
+       "{<<\"version\">>,longstr,<<\"0.10.3\">>}",
+       "{<<\"platform\">>,longstr,<<\"Node.JS v16.16.0\">>}",
+       "{<<\"information\">>,longstr,<<\"http://squaremo.github.io/amqp.node\">>}",
+       "{<<\"capabilities\">>,table,[{<<\"publisher_confirms\">>,bool,true},{<<\"exchange_exchange_bindings\">>,bool,true},{<<\"basic.nack\">>,bool,true},{<<\"consumer_cancel_notify\">>,bool,true},{<<\"connection.blocked\">>,bool,true},{<<\"authentication_failure_close\">>,bool,true}]}"
+    ],
+    "node":"rabbit@rb-cluster-2-server-0.rb-cluster-2-nodes.default",
+    "pid":"<rabbit@rb-cluster-2-server-0.rb-cluster-2-nodes.default.1662464460.4924.0>",
+    "name":"10.85.3.1:56425 -> 10.85.2.58:5672",
+    "timestamp_in_ms":1662465209138
+ }{
+    "event":"consumer.deleted",
+    "user_who_performed_action":"rmq-internal",
+    "queue":"queue-0",
+    "vhost":"/",
+    "channel":"<rabbit@rb-cluster-2-server-0.rb-cluster-2-nodes.default.1662464460.4933.0>",
+    "consumer_tag":"amq.ctag-Sk9kil8QTTtZvx02kRHaMA",
+    "timestamp_in_ms":1662465209138
+ }{
+    "event":"channel.closed",
+    "user_who_performed_action":"guest",
+    "pid":"<rabbit@rb-cluster-2-server-0.rb-cluster-2-nodes.default.1662464460.4933.0>",
+    "timestamp_in_ms":1662465209139
+ }{
+    "event":"node.node.stats",
+    "send_bytes":15829,
+    "recv_bytes":867,
+    "sock_port":25672,
+    "sock_addr":"10.85.2.58",
+    "peer_port":35046,
+    "peer_addr":"10.85.2.58",
+    "route":"{'rabbit@rb-cluster-2-server-0.rb-cluster-2-nodes.default','rabbitmqcli-465-rabbit@rb-cluster-2-server-0.rb-cluster-2-nodes.default'}",
+    "timestamp_in_ms":1662465210580
+ }{
+    "event":"connection.closed",
+    "client_properties":[
+       
+    ],
+    "node":"rabbit@rb-cluster-2-server-0.rb-cluster-2-nodes.default",
+    "pid":"<rabbit@rb-cluster-2-server-0.rb-cluster-2-nodes.default.1662464460.4993.0>",
+    "name":"10.85.2.1:19995 -> 10.85.2.58:5672",
+    "timestamp_in_ms":1662465213057
+ }{
+    "event":"queue.deleted",
+    "user_who_performed_action":"guest",
+    "name":"queue-0",
+    "vhost":"/",
+    "timestamp_in_ms":1662465213224
+ }{
+    "event":"connection.closed",
+    "client_properties":[
+       
+    ],
+    "node":"rabbit@rb-cluster-2-server-0.rb-cluster-2-nodes.default",
+    "pid":"<rabbit@rb-cluster-2-server-0.rb-cluster-2-nodes.default.1662464460.5007.0>",
+    "name":"10.85.2.1:45166 -> 10.85.2.58:5672",
+    "timestamp_in_ms":1662465214144
+ }{
+    "event":"connection.closed",
+    "client_properties":[
+       
+    ],
+    "node":"rabbit@rb-cluster-2-server-0.rb-cluster-2-nodes.default",
+    "pid":"<rabbit@rb-cluster-2-server-0.rb-cluster-2-nodes.default.1662464460.5014.0>",
+    "name":"10.85.3.1:57168 -> 10.85.2.58:5672",
+    "timestamp_in_ms":1662465215145
+ }{
+    "event":"node.node.stats",
+    "send_bytes":17523,
+    "recv_bytes":871,
+    "sock_port":25672,
+    "sock_addr":"10.85.2.58",
+    "peer_port":35046,
+    "peer_addr":"10.85.2.58",
+    "route":"{'rabbit@rb-cluster-2-server-0.rb-cluster-2-nodes.default','rabbitmqcli-465-rabbit@rb-cluster-2-server-0.rb-cluster-2-nodes.default'}",
+    "timestamp_in_ms":1662465215582
+ }{
+    "event":"connection.closed",
+    "client_properties":[
+       
+    ],
+    "node":"rabbit@rb-cluster-2-server-0.rb-cluster-2-nodes.default",
+    "pid":"<rabbit@rb-cluster-2-server-0.rb-cluster-2-nodes.default.1662464460.5019.0>",
+    "name":"10.85.0.1:45699 -> 10.85.2.58:5672",
+    "timestamp_in_ms":1662465215873
+ }
