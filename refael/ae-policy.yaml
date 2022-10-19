@@ -1,0 +1,13 @@
+apiVersion: rabbitmq.com/v1beta1
+kind: Policy
+metadata:
+  name: ae-policy-test
+spec:
+  name: ae-policy-test
+  pattern: "^test-ex$" 
+  applyTo: "exchanges" # set to 'queues', 'exchanges', or 'all'
+  definition:
+    alternate-exchange: unroutable-ex  
+  rabbitmqClusterReference:
+    name: rb-cluster-2
+
