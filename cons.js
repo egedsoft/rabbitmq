@@ -1,11 +1,11 @@
 const amqplib = require('amqplib');
 
-var amqp_url = process.env.CLOUDAMQP_URL || 'amqp://guest:guest@10.99.92.16:5672/';
+var amqp_url = process.env.CLOUDAMQP_URL || 'amqp://guest:guest@20.85.187.5:15672/';
 
 async function do_consume() {
     var conn = await amqplib.connect(amqp_url, "heartbeat=60");
     var ch = await conn.createChannel()
-    var q = 'unroutable';
+    var q = 'qq-reception-status-frame-delivered-to-globus';
     await conn.createChannel();
     await ch.assertQueue(q, {durable: true});
     

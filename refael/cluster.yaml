@@ -8,7 +8,7 @@ spec:
   persistence:
     storageClassName: local-path
     storage: 50Mi
-  replicas: 2
+  replicas: 3
   #image: rabbitmq:3.9.11
   service:
     type: LoadBalancer

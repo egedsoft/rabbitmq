@@ -1,0 +1,263 @@
+global:
+  imageRegistry: ""
+  imagePullSecrets: []
+  storageClass: "default"
+kubeVersion: ""
+nameOverride: ""
+fullnameOverride: ""
+commonLabels: {}
+commonAnnotations: {}
+clusterDomain: cluster.local
+extraDeploy: []
+diagnosticMode:
+  enabled: false
+rabbitmqImage:
+  registry: docker.io
+  repository: bitnami/rabbitmq
+  tag: 3.10.10-debian-11-r0
+  digest: ""
+  pullSecrets: []
+credentialUpdaterImage:
+  registry: docker.io
+  repository: bitnami/rmq-default-credential-updater
+  tag: 1.0.2-scratch-r10
+  digest: ""
+  pullSecrets: []
+clusterOperator:
+  image:
+    registry: docker.io
+    repository: bitnami/rabbitmq-cluster-operator
+    tag: 2.0.0-scratch-r4
+    digest: ""
+    pullPolicy: IfNotPresent
+    pullSecrets: []
+  replicaCount: 1
+  schedulerName: ""
+  topologySpreadConstraints: []
+  terminationGracePeriodSeconds: ""
+  livenessProbe:
+    enabled: true
+    initialDelaySeconds: 5
+    periodSeconds: 30
+    timeoutSeconds: 5
+    successThreshold: 1
+    failureThreshold: 5
+  readinessProbe:
+    enabled: true
+    initialDelaySeconds: 5
+    periodSeconds: 30
+    timeoutSeconds: 5
+    successThreshold: 1
+    failureThreshold: 5
+  startupProbe:
+    enabled: false
+    initialDelaySeconds: 5
+    periodSeconds: 30
+    timeoutSeconds: 5
+    successThreshold: 1
+    failureThreshold: 5
+  customLivenessProbe: {}
+  customReadinessProbe: {}
+  customStartupProbe: {}
+  resources:
+    limits: {}
+    requests: {}
+  podSecurityContext:
+    enabled: true
+    fsGroup: 1001
+  containerSecurityContext:
+    enabled: true
+    runAsUser: 1001
+    runAsNonRoot: true
+    readOnlyRootFilesystem: true
+  command: []
+  args: []
+  hostAliases: []
+  podLabels: {}
+  podAnnotations: {}
+  podAffinityPreset: ""
+  podAntiAffinityPreset: soft
+  nodeAffinityPreset:
+    type: ""
+    key: ""
+    values: []
+  affinity: {}
+  nodeSelector: {}
+  tolerations: []
+  updateStrategy:
+    type: RollingUpdate
+  priorityClassName: ""
+  lifecycleHooks: {}
+  containerPorts:
+    metrics: 9782
+  extraEnvVars: []
+  extraEnvVarsCM: ""
+  extraEnvVarsSecret: ""
+  extraVolumes: []
+  extraVolumeMounts: []
+  sidecars: []
+  initContainers: []
+  rbac:
+    create: true
+  serviceAccount:
+    create: true
+    name: ""
+    annotations: {}
+    automountServiceAccountToken: true
+  metrics:
+    enabled: true #####
+    service:
+      type: ClusterIP
+      ports:
+        http: 80
+      nodePorts:
+        http: ""
+      clusterIP: ""
+      extraPorts: []
+      loadBalancerIP: ""
+      loadBalancerSourceRanges: []
+      externalTrafficPolicy: Cluster
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "{{ .Values.clusterOperator.metrics.service.ports.http }}"
+      sessionAffinity: None
+      sessionAffinityConfig: {}
+    serviceMonitor:
+      enabled: true #####
+      namespace: ""
+      jobLabel: app.kubernetes.io/name
+      honorLabels: false
+      selector: {}
+      scrapeTimeout: ""
+      interval: ""
+      metricRelabelings: []
+      relabelings: []
+      labels: {}
+msgTopologyOperator:
+  image:
+    registry: docker.io
+    repository: bitnami/rmq-messaging-topology-operator
+    tag: 1.8.0-scratch-r3
+    digest: ""
+    pullPolicy: IfNotPresent
+    pullSecrets: []
+  replicaCount: 1
+  topologySpreadConstraints: []
+  schedulerName: ""
+  terminationGracePeriodSeconds: ""
+  livenessProbe:
+    enabled: true
+    initialDelaySeconds: 5
+    periodSeconds: 30
+    timeoutSeconds: 5
+    successThreshold: 1
+    failureThreshold: 5
+  readinessProbe:
+    enabled: true
+    initialDelaySeconds: 5
+    periodSeconds: 30
+    timeoutSeconds: 5
+    successThreshold: 1
+    failureThreshold: 5
+  startupProbe:
+    enabled: false
+    initialDelaySeconds: 5
+    periodSeconds: 30
+    timeoutSeconds: 5
+    successThreshold: 1
+    failureThreshold: 5
+  customLivenessProbe: {}
+  customReadinessProbe: {}
+  customStartupProbe: {}
+  existingWebhookCertSecret: ""
+  existingWebhookCertCABundle: ""
+  resources:
+    limits: {}
+    requests: {}
+  podSecurityContext:
+    enabled: true
+    fsGroup: 1001
+  containerSecurityContext:
+    enabled: true
+    runAsUser: 1001
+    runAsNonRoot: true
+    readOnlyRootFilesystem: true
+  fullnameOverride: ""
+  command: []
+  args: []
+  hostAliases: []
+  podLabels: {}
+  podAnnotations: {}
+  podAffinityPreset: ""
+  podAntiAffinityPreset: soft
+  nodeAffinityPreset:
+    type: ""
+    key: ""
+    values: []
+  affinity: {}
+  nodeSelector: {}
+  tolerations: []
+  updateStrategy:
+    type: RollingUpdate
+  priorityClassName: ""
+  lifecycleHooks: {}
+  containerPorts:
+    metrics: 8080
+  extraEnvVars: []
+  extraEnvVarsCM: ""
+  extraEnvVarsSecret: ""
+  extraVolumes: []
+  extraVolumeMounts: []
+  sidecars: []
+  initContainers: []
+  service:
+    type: ClusterIP
+    ports:
+      webhook: 443
+    nodePorts:
+      http: ""
+    clusterIP: ""
+    loadBalancerIP: ""
+    extraPorts: []
+    loadBalancerSourceRanges: []
+    externalTrafficPolicy: Cluster
+    annotations: {}
+    sessionAffinity: None
+    sessionAffinityConfig: {}
+  rbac:
+    create: true
+  serviceAccount:
+    create: true
+    name: ""
+    annotations: {}
+    automountServiceAccountToken: true
+  metrics:
+    enabled: true ######
+    service:
+      type: ClusterIP
+      ports:
+        http: 80
+      nodePorts:
+        http: ""
+      clusterIP: ""
+      extraPorts: []
+      loadBalancerIP: ""
+      loadBalancerSourceRanges: []
+      externalTrafficPolicy: Cluster
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "{{ .Values.msgTopologyOperator.metrics.service.ports.http }}"
+      sessionAffinity: None
+      sessionAffinityConfig: {}
+    serviceMonitor:
+      enabled: false #######
+      namespace: ""
+      jobLabel: app.kubernetes.io/name
+      selector: {}
+      honorLabels: false
+      scrapeTimeout: ""
+      interval: ""
+      metricRelabelings: []
+      relabelings: []
+      labels: {}
+useCertManager: false
